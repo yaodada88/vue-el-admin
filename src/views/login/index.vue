@@ -5,7 +5,7 @@
         <div class="col-12 col-sm-9 col-md-7 col-lg-5 m-auto mt-5">
           <div class="card mt-5">
             <div class="card-header bg-white mb-0">
-              <h3 class="text-center text-secondary">UNI-ADMIN</h3>
+              <h3 class="text-center text-secondary">{{$conf.logo}}</h3>
             </div>
             <div class="card-body">
               <el-form :rules="rules" ref="rulesform" :model="form" >

@@ -6,6 +6,9 @@ import ElementUI from 'element-ui';
 Vue.use(ElementUI);
 import 'element-ui/lib/theme-chalk/index.css';
 
+import $conf from './common/config/config.js'
+
+Vue.prototype.$conf= $conf
 
 Vue.config.productionTip = false
 

@@ -2,7 +2,7 @@
   <div>
     <el-container style="position: absolute;top:0;left:0;right:0;bottom:0;overflow:hidden">
       <el-header class="d-flex align-items-center" style="background:#545c64">
-        <a class="h5 text-light text-white mb-0 mr-auto">UNI-ADMIN</a>
+        <a class="h5 text-light text-white mb-0 mr-auto">{{$conf.logo}}</a>
         <el-menu
           :default-active="navbar.activeIndex"
           class="el-menu-demo"
@@ -30,18 +30,10 @@
         <el-aside width="200px">
           <el-menu
           @select="slideSelect"
-      default-active="2">
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3" >
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
+      default-active="0">
+      <el-menu-item :index="index | toNumber" v-for="(item,index) in slideMeau" :key="index">
+        <i :class="item.icon"></i>
+        <span slot="title">{{item.name}}</span>
       </el-menu-item>
     </el-menu>
         </el-aside>
@@ -60,25 +52,32 @@ export default {
   name: "layout",
   data() {
     return {
-      navbar:{
-        activeIndex:'0',
-        list:[
-          {name:'首页'},
-          {name:'商品'},
-          {name:'订单'},
-          {name:'会员'},
-          {name:'设置'},
-        ]
-      }
+      navbar:''
     };
   },
+  created(){
+    this.navbar = this.$conf.navbar
+  },
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+    handleSelect(key) {
+      this.navbar.activeIndex = key;
     },
-    slideSelect(key, keyPath) {
-      console.log(key, keyPath);
+    slideSelect(key) {
+      this.slideMeauActive = key
     },
+  },
+  computed:{
+    slideMeau(){
+      return this.navbar.list[this.navbar.activeIndex].submenu || []
+    },
+    slideMeauActive:{
+      get(){
+        return this.navbar.list[this.navbar.activeIndex].subActive || '0'
+      },
+      set(val){
+        this.navbar.list[this.navbar.activeIndex].subActive = val
+      }
+    }
   }
 };
 </script>
